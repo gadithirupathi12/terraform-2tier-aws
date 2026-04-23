@@ -1,7 +1,13 @@
 # main.tf — Core networking infrastructure
 
-# ── Provider: tells Terraform to use AWS ──────────────────────────────────
+# ── Terraform Backend (STATE STORAGE) ────────────────────────────────
 terraform {
+  backend "s3" {
+    bucket = "terraform-buucket09823"
+    key    = "aws-2tier/terraform.tfstate"
+    region = "ap-south-1"
+  }
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -10,6 +16,7 @@ terraform {
   }
 }
 
+# ── Provider: tells Terraform to use AWS ─────────────────────────────
 provider "aws" {
   region = var.aws_region
 }
